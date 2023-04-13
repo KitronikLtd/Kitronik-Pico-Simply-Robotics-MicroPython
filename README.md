@@ -16,26 +16,36 @@ This code is designed to be used as a module. See: https://kitronik.co.uk/blogs/
 
 ## API:
 
-   ### servos[] - array of 8 servos
-        servos[WHICH_SERVO].goToPosition(degrees): Sets a servo to a degree position. servo - which to set (0-7), degrees - angle to goto (0-180)
-        servos[WHICH_SERVO].goToPeriod(): Sets a servo to a degree position. servo - which to set (0-7), degrees - angle to goto (0-180)
-        servos[WHICH_SERVO].registerServo(): Sets a servo to a degree position. servo - which to set (0-7), degrees - angle to goto (0-180)
-        servos[WHICH_SERVO].deregisterServo(): Sets a servo to a degree position. servo - which to set (0-7), degrees - angle to goto (0-180)
-            where:
-            WHICH_SERVO - the servo to control (0-7)
-            degrees - angle to goto (0-180)
-            period - pulse length to output in uSec (500 - 2500)
-            
-        
-   ### motors[] - array of 4 motors
-        motors[WHICH_MOTOR].on(direction, speed)
-        motors[WHICH_MOTOR].off()
-            where:
-            WHICH_MOTOR - the motor to control (0-3)
-            
-   ### steppers[] - array of 2 stepper motors
-        steppers[WHICH_STEPPER].step(direction)
-        steppers[WHICH_STEPPER].halfStep(direction)
-            where:
-            WHICH_STEPPER - the stepper to control  (0 or 1) - stepper should be connected to motors 0 and 1 (stepper 0) or motors 3 and 4 (stepper 1)
-            direction = ["f","r"] -> Forwards or Reverse.
+### servos[] - array of 8 servos
+```
+servos[WHICH_SERVO].goToPosition(degrees): Sets a servo's position in degrees.
+servos[WHICH_SERVO].goToPeriod(period): Sets a servo's position using the pulse length period.
+servos[WHICH_SERVO].registerServo(): Sets a servo to be active.
+servos[WHICH_SERVO].deregisterServo(): Sets a servo to be inactive.
+    where:
+    WHICH_SERVO - the servo to control (0 - 7)
+    degrees - angle to go to (0 - 180)
+    period - pulse length to output in uSec (500 - 2500)    
+```
+
+### motors[] - array of 4 motors
+```
+motors[WHICH_MOTOR].on(direction, speed): Turns the motor on at a speed in the direction.
+motors[WHICH_MOTOR].off(): Turns the motor off.
+    where:
+    WHICH_MOTOR - the motor to control (0 - 3)
+    direction - either forwards or reverse ("f" or "r")
+    speed - how fast to turn the motor (0 - 100)
+```
+
+### steppers[] - array of 2 stepper motors
+```
+steppers[WHICH_STEPPER].step(direction): Turns the stepper motor a full step in the direction.
+steppers[WHICH_STEPPER].halfStep(direction): Turns the stepper motor a half step in the direction.
+    where:
+    WHICH_STEPPER - the stepper motor to control (0 or 1)
+    direction - either forwards or reverse ("f" or "r")
+
+Note: stepper 0 should be connected to motors 0 and 1,
+        stepper 1 should be connected to motors 3 and 4
+```
