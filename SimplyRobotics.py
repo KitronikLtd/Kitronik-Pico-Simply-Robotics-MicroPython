@@ -5,12 +5,14 @@ www.kitronik.co.uk/5348
 API:
     servos[] - array of 8 servos
         servos[WHICH_SERVO].goToPosition(degrees): Sets a servo's position in degrees.
+        servos[WHICH_SERVO].goToRadians(radians): Sets a servo's position in radians.
         servos[WHICH_SERVO].goToPeriod(period): Sets a servo's position using the pulse length period.
         servos[WHICH_SERVO].registerServo(): Sets a servo to be active.
         servos[WHICH_SERVO].deregisterServo(): Sets a servo to be inactive.
             where:
             WHICH_SERVO - the servo to control (0 - 7)
             degrees - angle to go to (0 - 180)
+            radians - radians to go to (0 - 3.1416 (Pi to four digits))
             period - pulse length to output in uSec (500 - 2500)    
         
     motors[] - array of 4 motors
@@ -173,6 +175,7 @@ class PIOServo:
     minServoPulse = 500
     pulseTrain = 20000
     degreesToUS = 2000 / 180
+    piEstimate = 3.1416
     
     # This code drives a pwm on the PIO. It is running at 2Mhz, which gives the PWM a 1uS resolution. 
     @asm_pio(sideset_init = PIO.OUT_LOW)
@@ -209,6 +212,12 @@ class PIOServo:
     def goToPosition(self, degrees):
         pulseLength = int(degrees * self.degreesToUS + 500)
         self.goToPeriod(pulseLength)
+    
+    # Takes the servo to change and the angle in radians to move to.
+    # 0 radians to 3.1416
+    def goToRadians(self, radians):
+        period = int((radians / self.piEstimate) * 2000) + 500
+        self.goToPeriod(period)
     
     # goToPeriod takes a uS period to send to the servo.
     # It expects a range of 500 - 2500 uS

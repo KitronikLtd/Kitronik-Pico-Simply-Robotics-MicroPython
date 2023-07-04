@@ -19,12 +19,14 @@ This code is designed to be used as a module. See: https://kitronik.co.uk/blogs/
 ### servos[] - array of 8 servos
 ```
 servos[WHICH_SERVO].goToPosition(degrees): Sets a servo's position in degrees.
+servos[WHICH_SERVO].goToRadians(radians): Sets a servo's position in radians.
 servos[WHICH_SERVO].goToPeriod(period): Sets a servo's position using the pulse length period.
 servos[WHICH_SERVO].registerServo(): Sets a servo to be active.
 servos[WHICH_SERVO].deregisterServo(): Sets a servo to be inactive.
     where:
     WHICH_SERVO - the servo to control (0 - 7)
     degrees - angle to go to (0 - 180)
+    radians - radians to go to (0 - 3.1416 (Pi to four digits))
     period - pulse length to output in uSec (500 - 2500)    
 ```
 
